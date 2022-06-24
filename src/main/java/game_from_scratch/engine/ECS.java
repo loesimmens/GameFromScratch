@@ -35,7 +35,7 @@ public class ECS {
         int id = this.entities.size();
         Entity entity = new Entity(id, components);
         this.entities.add(entity);
-        components.forEach(component -> component.setEntityId(id));
+        components.forEach(component -> component.setEntity(entity));
         this.components.addAll(components);
     }
 

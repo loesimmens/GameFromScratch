@@ -4,6 +4,7 @@ public class Position extends Component{
     private int x;
     private int y;
 
+    //todo check of positie binnen gamemap past
     public Position(int x, int y) {
         this.x = x;
         this.y = y;

@@ -26,19 +26,17 @@ public class GameMap {
     private void addTiles() {
         for(int y = 0; y < this.mapHeight; y++) {
             for (int x = 0; x < this.mapWidth; x++) {
-                Position position = new Position(x, y);
                 this.ecs.addEntity(List.of(
-                        position,
-                        new Rendering("wall", position,0)));
+                        new Position(x, y),
+                        new Rendering("wall", 0)));
             }
         }
     }
 
     private void addPlayer() {
-        final Position position = new Position(0, 0);
         this.ecs.addEntity(List.of(
-                position,
-                new Rendering("player", position, 1)
+                new Position(0, 0),
+                new Rendering("player", 1)
         ));
     }
 }

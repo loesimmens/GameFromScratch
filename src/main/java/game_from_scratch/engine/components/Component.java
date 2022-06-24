@@ -1,13 +1,15 @@
 package game_from_scratch.engine.components;
 
-public abstract class Component {
-    protected int entityId;
+import game_from_scratch.engine.entities.Entity;
 
-    public int getEntityId() {
-        return entityId;
+public abstract class Component {
+    protected Entity entity;
+
+    public Entity getEntity() {
+        return entity;
     }
 
-    public void setEntityId(int entityId) {
-        this.entityId = entityId;
+    public void setEntity(Entity entity) {
+        this.entity = entity;
     }
 }
