@@ -1,4 +1,4 @@
-package game.world.tiles;
+package game_from_scratch.game.world.tiles;
 
 public enum TileType {
     WALL(0),

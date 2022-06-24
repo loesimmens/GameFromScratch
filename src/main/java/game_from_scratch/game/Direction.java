@@ -1,4 +1,4 @@
-package game;
+package game_from_scratch.game;
 
 public enum Direction {
     UP,

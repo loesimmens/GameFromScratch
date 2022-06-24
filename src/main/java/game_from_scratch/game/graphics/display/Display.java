@@ -1,4 +1,4 @@
-package game.graphics.display;
+package game_from_scratch.game.graphics.display;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ public class Display {
     public Display(@Value("${screen.width}") int width, @Value("${screen.height}")int height) {
         frame = new JFrame(TITLE);
         frame.setSize(width, height);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

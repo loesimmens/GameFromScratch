@@ -1,8 +1,9 @@
-package game.graphics;
+package game_from_scratch.game.graphics;
 
-import game.graphics.display.Display;
-import game.graphics.rendering.RenderService;
-import game.logging.GameLogger;
+import game_from_scratch.engine.ECS;
+import game_from_scratch.game.graphics.display.Display;
+import game_from_scratch.engine.systems.RenderSystem;
+import game_from_scratch.game.logging.GameLogger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +22,16 @@ public class GraphicsService{
     private BufferStrategy bufferStrategy;
     private Graphics graphics;
 
-    private final RenderService renderService;
+    private final RenderSystem renderSystem;
+    private final ECS ecs;
 
     public GraphicsService(@Value("${screen.width}") int screenWidth, @Value("${screen.height}") int screenHeight,
-                           Display display, RenderService renderService) {
+                           Display display, RenderSystem renderSystem, ECS ecs) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.display = display;
-        this.renderService = renderService;
+        this.renderSystem = renderSystem;
+        this.ecs = ecs;
         initGraphics();
     }
 
@@ -46,6 +49,7 @@ public class GraphicsService{
             bufferStrategy = display.getCanvas().getBufferStrategy();
         }
         graphics = bufferStrategy.getDrawGraphics();
+        this.renderSystem.setGraphics(this.graphics);
     }
 
     private void clearScreen() {
@@ -53,7 +57,7 @@ public class GraphicsService{
     }
 
     private void renderGame() {
-        renderService.render(graphics);
+        this.ecs.tickRenderSystem();
     }
 
     private void stopDrawing() {

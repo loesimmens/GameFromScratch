@@ -1,4 +1,4 @@
-package game.logging;
+package game_from_scratch.game.logging;
 
 import java.io.IOException;
 import java.nio.file.Files;

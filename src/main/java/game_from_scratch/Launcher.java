@@ -1,5 +1,6 @@
-package game;
+package game_from_scratch;
 
+import game_from_scratch.game.Game;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
