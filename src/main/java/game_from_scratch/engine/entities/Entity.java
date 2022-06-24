@@ -5,17 +5,17 @@ import game_from_scratch.engine.components.Component;
 import java.util.List;
 
 public class Entity {
-    private long id;
+    private int id;
     private boolean active;
     private List<Component> components;
 
-    public Entity(long id, List<Component> components) {
+    public Entity(int id, List<Component> components) {
         this.id = id;
         this.active = true;
         this.components = components;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -27,8 +27,9 @@ public class Entity {
         this.components.remove(component);
     }
 
-    public boolean hasComponent(Component component) {
-        return this.components.contains(component);
+    public boolean hasComponentOfClass(Class componentClass) {
+        return this.components.stream()
+                .anyMatch(componentClass::isInstance);
     }
 
     public void activate() {

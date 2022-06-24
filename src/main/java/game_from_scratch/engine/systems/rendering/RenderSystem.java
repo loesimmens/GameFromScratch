@@ -44,8 +44,8 @@ public class RenderSystem implements System {
         Rendering rendering = (Rendering) component;
 
         BufferedImage image = this.assetService.getImage(rendering.getImageName());
-        int x = rendering.getX();
-        int y = rendering.getY();
+        int x = rendering.getPosition().getX();
+        int y = rendering.getPosition().getY();
 
         this.graphics.drawImage(image, x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight, null);
     }

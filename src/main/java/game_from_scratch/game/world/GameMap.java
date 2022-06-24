@@ -1,6 +1,7 @@
 package game_from_scratch.game.world;
 
 import game_from_scratch.engine.ECS;
+import game_from_scratch.engine.components.Position;
 import game_from_scratch.engine.components.Rendering;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -25,14 +26,19 @@ public class GameMap {
     private void addTiles() {
         for(int y = 0; y < this.mapHeight; y++) {
             for (int x = 0; x < this.mapWidth; x++) {
-                this.ecs.addEntity(List.of(new Rendering("wall", x, y, 0)));
+                Position position = new Position(x, y);
+                this.ecs.addEntity(List.of(
+                        position,
+                        new Rendering("wall", position,0)));
             }
         }
     }
 
     private void addPlayer() {
+        final Position position = new Position(0, 0);
         this.ecs.addEntity(List.of(
-                new Rendering("player", 0, 0, 1)
+                position,
+                new Rendering("player", position, 1)
         ));
     }
 }

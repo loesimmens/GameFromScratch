@@ -32,7 +32,7 @@ public class ECS {
     }
 
     public void addEntity(List<Component> components) {
-        long id = this.entities.size();
+        int id = this.entities.size();
         Entity entity = new Entity(id, components);
         this.entities.add(entity);
         components.forEach(component -> component.setEntityId(id));

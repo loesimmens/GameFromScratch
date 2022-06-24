@@ -2,35 +2,27 @@ package game_from_scratch.engine.components;
 
 public class Rendering extends Component {
     private String imageName;
-    private int x;
-    private int y;
+
+    private Position position;
+
     private int layer;
 
-    public Rendering(String imageName, int x, int y, int layer) {
+    public Rendering(String imageName, Position position, int layer) {
         this.imageName = imageName;
-        this.x = x;
-        this.y = y;
+        this.position = position;
         this.layer = layer;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public String getImageName() {
         return imageName;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public void setImageName(String imageName) {
