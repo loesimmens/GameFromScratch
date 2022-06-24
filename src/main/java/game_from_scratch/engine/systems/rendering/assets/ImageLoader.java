@@ -1,4 +1,4 @@
-package game_from_scratch.game.graphics.assets;
+package game_from_scratch.engine.systems.rendering.assets;
 
 import game_from_scratch.game.logging.GameLogger;
 import org.springframework.stereotype.Service;

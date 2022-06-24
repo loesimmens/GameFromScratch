@@ -2,7 +2,7 @@ package game_from_scratch.game.graphics;
 
 import game_from_scratch.engine.ECS;
 import game_from_scratch.game.graphics.display.Display;
-import game_from_scratch.engine.systems.RenderSystem;
+import game_from_scratch.engine.systems.rendering.RenderSystem;
 import game_from_scratch.game.logging.GameLogger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

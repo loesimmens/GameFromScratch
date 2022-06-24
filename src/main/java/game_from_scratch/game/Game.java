@@ -19,21 +19,16 @@ public class Game {
 
     private final int mapWidth;
     private final int mapHeight;
-    private final int tileWidth;
-    private final int tileHeight;
 
     private boolean running = false;
 
     public Game(InputSystem inputSystem, GraphicsService graphicsService, GameMap gameMap, ECS ecs,
-                @Value("${gamemap.width}") int mapWidth, @Value("${gamemap.height}") int mapHeight,
-                @Value("${tile.width}") int tileWidth, @Value("${tile.height}") int tileHeight) {
+                @Value("${gamemap.width}") int mapWidth, @Value("${gamemap.height}") int mapHeight) {
         this.inputSystem = inputSystem;
         this.graphicsService = graphicsService;
         this.ecs = ecs;
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
         this.graphicsService.getDisplay().getFrame().addKeyListener(inputSystem);
         this.gameMap = gameMap;
     }

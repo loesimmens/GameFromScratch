@@ -13,24 +13,26 @@ public class GameMap {
 
     private final int mapWidth;
     private final int mapHeight;
-    private final int tileWidth;
-    private final int tileHeight;
 
-    public GameMap(ECS ecs, @Value("${gamemap.width}") int mapWidth, @Value("${gamemap.height}") int mapHeight,
-                   @Value("${tile.width}") int tileWidth, @Value("${tile.height}") int tileHeight) {
+    public GameMap(ECS ecs, @Value("${gamemap.width}") int mapWidth, @Value("${gamemap.height}") int mapHeight) {
         this.ecs = ecs;
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
-        this.addTilesAsEntities();
+        this.addTiles();
+        this.addPlayer();
     }
 
-    private void addTilesAsEntities() {
+    private void addTiles() {
         for(int y = 0; y < this.mapHeight; y++) {
             for (int x = 0; x < this.mapWidth; x++) {
-                this.ecs.addEntity(List.of(new Rendering("wall", x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight)));
+                this.ecs.addEntity(List.of(new Rendering("wall", x, y, 0)));
             }
         }
+    }
+
+    private void addPlayer() {
+        this.ecs.addEntity(List.of(
+                new Rendering("player", 0, 0, 1)
+        ));
     }
 }

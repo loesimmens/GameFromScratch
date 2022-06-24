@@ -4,15 +4,13 @@ public class Rendering extends Component {
     private String imageName;
     private int x;
     private int y;
-    private int width;
-    private int height;
+    private int layer;
 
-    public Rendering(String imageName, int x, int y, int width, int height) {
+    public Rendering(String imageName, int x, int y, int layer) {
         this.imageName = imageName;
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        this.layer = layer;
     }
 
     public String getImageName() {
@@ -35,19 +33,15 @@ public class Rendering extends Component {
         this.y = y;
     }
 
-    public int getWidth() {
-        return width;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public Integer getLayer() {
+        return layer;
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
+    public void setLayer(int layer) {
+        this.layer = layer;
     }
 }

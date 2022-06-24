@@ -1,4 +1,4 @@
-package game_from_scratch.game.graphics.assets;
+package game_from_scratch.engine.systems.rendering.assets;
 
 import org.springframework.stereotype.Service;
 
@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 @Service
 public class AssetService {
-    private static final String SPRITE_SHEET_PATH = "src/main/resources/sprite_sheets";
+    private static final String SPRITE_SHEET_PATH = "src/main/resources/sprites";
 
     private final ImageLoader imageLoader;
 

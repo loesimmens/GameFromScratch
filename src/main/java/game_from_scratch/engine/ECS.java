@@ -3,7 +3,7 @@ package game_from_scratch.engine;
 import game_from_scratch.engine.components.Component;
 import game_from_scratch.engine.components.Rendering;
 import game_from_scratch.engine.entities.Entity;
-import game_from_scratch.engine.systems.RenderSystem;
+import game_from_scratch.engine.systems.rendering.RenderSystem;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
