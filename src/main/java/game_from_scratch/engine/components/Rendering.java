@@ -1,28 +1,22 @@
 package game_from_scratch.engine.components;
 
-import java.awt.image.BufferedImage;
-
 public class Rendering extends Component {
-    private BufferedImage image;
+    private String imageName;
     private int x;
     private int y;
     private int width;
     private int height;
 
-    public Rendering(BufferedImage image, int x, int y, int width, int height) {
-        this.image = image;
+    public Rendering(String image, int x, int y, int width, int height) {
+        this.imageName = image;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
     }
 
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
+    public String getImageName() {
+        return imageName;
     }
 
     public int getX() {
