@@ -7,8 +7,8 @@ public class Rendering extends Component {
     private int width;
     private int height;
 
-    public Rendering(String image, int x, int y, int width, int height) {
-        this.imageName = image;
+    public Rendering(String imageName, int x, int y, int width, int height) {
+        this.imageName = imageName;
         this.x = x;
         this.y = y;
         this.width = width;
