@@ -2,19 +2,15 @@ package game_from_scratch.game.graphics;
 
 import game_from_scratch.engine.ECS;
 import game_from_scratch.game.graphics.display.Display;
-import game_from_scratch.engine.systems.rendering.RenderSystem;
-import game_from_scratch.game.logging.GameLogger;
+import game_from_scratch.engine.systems.RenderSystem;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.util.logging.Logger;
 
 @Service
 public class GraphicsService{
-    private static final Logger LOGGER = GameLogger.getLogger();
-
     private final int screenWidth;
     private final int screenHeight;
 

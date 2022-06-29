@@ -4,10 +4,13 @@ import game_from_scratch.engine.components.Component;
 
 import java.util.List;
 
-public interface System {
-    default void actOnAllComponents(List<Component> components) {
-        components.forEach(this::actOnOneComponent);
+public interface System<T extends Component> {
+    default void actOnAllComponents(List<Component> components, Class<T> type) {
+        components.stream()
+                .filter(type::isInstance)
+                .map(component -> (T) component)
+                .forEach(this::actOnOneComponent);
     }
 
-    void actOnOneComponent(Component component);
+    void actOnOneComponent(T component);
 }

@@ -1,34 +1,27 @@
 package game_from_scratch.game;
 
 import game_from_scratch.engine.ECS;
+import game_from_scratch.engine.systems.InputSystem;
 import game_from_scratch.game.graphics.GraphicsService;
 import game_from_scratch.game.logging.GameLogger;
 import game_from_scratch.game.world.GameMap;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+
 import java.util.logging.Logger;
 
 @Controller
 public class Game {
     private static final Logger LOGGER = GameLogger.getLogger();
 
-    private final InputSystem inputSystem;
     private final GraphicsService graphicsService;
     private final GameMap gameMap;
     private final ECS ecs;
 
-    private final int mapWidth;
-    private final int mapHeight;
-
     private boolean running = false;
 
-    public Game(InputSystem inputSystem, GraphicsService graphicsService, GameMap gameMap, ECS ecs,
-                @Value("${gamemap.width}") int mapWidth, @Value("${gamemap.height}") int mapHeight) {
-        this.inputSystem = inputSystem;
+    public Game(InputSystem inputSystem, GraphicsService graphicsService, GameMap gameMap, ECS ecs) {
         this.graphicsService = graphicsService;
         this.ecs = ecs;
-        this.mapWidth = mapWidth;
-        this.mapHeight = mapHeight;
         this.graphicsService.getDisplay().getFrame().addKeyListener(inputSystem);
         this.gameMap = gameMap;
     }
@@ -77,10 +70,12 @@ public class Game {
     }
 
     public void tick() {
-        //tick all ecs systems
+        this.ecs.tickInputSystem();
+        this.ecs.tickMovingSystem();
+        this.ecs.tickPositionSystem();
     }
 
     public void render() {
-        graphicsService.render();
+        this.graphicsService.render();
     }
 }

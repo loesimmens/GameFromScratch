@@ -10,6 +10,14 @@ public class Position extends Component{
         this.y = y;
     }
 
+    public void updateX(int intendedMoveX) {
+        this.x += intendedMoveX;
+    }
+
+    public void updateY(int intendedMoveY) {
+        this.y += intendedMoveY;
+    }
+
     public int getX() {
         return x;
     }
@@ -24,5 +32,14 @@ public class Position extends Component{
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "entity=" + entity +
+                ", x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

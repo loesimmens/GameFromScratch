@@ -1,4 +1,4 @@
-package game_from_scratch.engine.systems.rendering.assets;
+package game_from_scratch.engine.assets;
 
 import org.springframework.stereotype.Service;
 

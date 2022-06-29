@@ -3,6 +3,7 @@ package game_from_scratch.engine.entities;
 import game_from_scratch.engine.components.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Entity {
     private int id;
@@ -27,9 +28,10 @@ public class Entity {
         this.components.remove(component);
     }
 
-    public boolean hasComponentOfClass(Class componentClass) {
+    public Optional<Component> getComponentOfClass(Class componentClass) {
         return this.components.stream()
-                .anyMatch(componentClass::isInstance);
+                .filter(componentClass::isInstance)
+                .findFirst();
     }
 
     public void activate() {
@@ -46,5 +48,14 @@ public class Entity {
 
     public List<Component> getComponents() {
         return components;
+    }
+
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "id=" + id +
+                ", active=" + active +
+                ", components=" + components +
+                '}';
     }
 }
