@@ -2,6 +2,8 @@ package game_from_scratch.engine.components;
 
 import game_from_scratch.engine.enums.Direction;
 
+import java.util.Optional;
+
 public class Moving extends Component {
     private boolean intendsToMove;
     private Direction intendedDirection;
@@ -45,9 +47,15 @@ public class Moving extends Component {
     }
 
     public void resetIntendedMove() {
-        intendedXMove = 0;
-        intendedYMove = 0;
-        intendsToMove = false;
+        this.intendedXMove = 0;
+        this.intendedYMove = 0;
+        this.intendsToMove = false;
+        Optional<Component> optionalPosition = this.getEntity().getComponentOfClass(Position.class);
+        if(optionalPosition.isPresent()) {
+            Position position = (Position) optionalPosition.get();
+            this.intendedXPosition = position.getX();
+            this.intendedYPosition = position.getY();
+        }
     }
 
     public int getIntendedXMove() {
@@ -61,7 +69,6 @@ public class Moving extends Component {
     @Override
     public String toString() {
         return "Moving{" +
-                "entity=" + entity +
                 ", intendsToMove=" + intendsToMove +
                 ", intendedDirection=" + intendedDirection +
                 ", intendedMoveX=" + intendedXMove +

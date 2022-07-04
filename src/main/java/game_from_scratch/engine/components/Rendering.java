@@ -3,10 +3,9 @@ package game_from_scratch.engine.components;
 import java.awt.image.BufferedImage;
 
 public class Rendering extends Component {
-    private String imageName;
+    private final String imageName;
     private BufferedImage image;
-
-    private int layer;
+    private final int layer;
 
     public Rendering(String imageName, int layer) {
         this.imageName = imageName;
@@ -17,16 +16,8 @@ public class Rendering extends Component {
         return imageName;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-
     public Integer getLayer() {
         return layer;
-    }
-
-    public void setLayer(int layer) {
-        this.layer = layer;
     }
 
     public BufferedImage getImage() {
@@ -40,7 +31,6 @@ public class Rendering extends Component {
     @Override
     public String toString() {
         return "Rendering{" +
-                "entity=" + entity +
                 ", imageName='" + imageName + '\'' +
                 ", image=" + image +
                 ", layer=" + layer +

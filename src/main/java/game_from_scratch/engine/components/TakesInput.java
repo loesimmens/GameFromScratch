@@ -4,7 +4,6 @@ public class TakesInput extends Component {
     @Override
     public String toString() {
         return "TakesInput{" +
-                "entity=" + entity +
                 '}';
     }
 }
