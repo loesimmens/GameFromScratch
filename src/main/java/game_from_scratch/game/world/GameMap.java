@@ -21,6 +21,17 @@ public class GameMap {
         this.edgesOfGameMap();
         this.addTiles();
         this.addPlayer();
+        this.addAI();
+    }
+
+    private void addAI() {
+        this.ecs.addEntity(List.of(
+                new Position(3, 3),
+                new Moving(),
+                new Rendering("ai", 1),
+                new AI(2),
+                new Colliding()
+        ));
     }
 
     private void edgesOfGameMap() {

@@ -15,13 +15,15 @@ public class ECS {
 
     private final RenderSystem renderSystem;
     private final InputSystem inputSystem;
+    private final AISystem aiSystem;
     private final MovingSystem intendToMoveSystem;
     private final MovingSystem executeMoveSystem;
     private final PositionSystem positionSystem;
     private final CollisionSystem collisionSystem;
 
-    public ECS(RenderSystem renderSystem, InputSystem inputSystem, IntendToMoveSystem intendToMoveSystem,
+    public ECS(RenderSystem renderSystem, InputSystem inputSystem, AISystem aiSystem, IntendToMoveSystem intendToMoveSystem,
                ExecuteMoveSystem executeMoveSystem, PositionSystem positionSystem, CollisionSystem collisionSystem) {
+        this.aiSystem = aiSystem;
         this.positionSystem = positionSystem;
         this.renderSystem = renderSystem;
         this.inputSystem = inputSystem;
@@ -39,6 +41,10 @@ public class ECS {
 
     public void tickInputSystem() {
         this.inputSystem.actOnAllComponents(this.components, TakesInput.class);
+    }
+
+    public void tickAISystem() {
+        this.aiSystem.actOnAllComponents(this.components, AI.class);
     }
 
     public void tickIntendToMoveSystem() {
@@ -73,15 +79,7 @@ public class ECS {
         entity.deactivate();
     }
 
-    public List<Entity> getEntities() {
-        return this.entities;
-    }
-
     public List<Component> getComponents() {
         return components;
-    }
-
-    public void addComponent(Component component) {
-        this.components.add(component);
     }
 }

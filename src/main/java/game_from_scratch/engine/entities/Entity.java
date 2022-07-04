@@ -28,6 +28,11 @@ public class Entity {
         this.components.remove(component);
     }
 
+    public boolean hasComponentOfClass(Class componentClass) {
+        return this.components.stream()
+                .anyMatch(componentClass::isInstance);
+    }
+
     public Optional<Component> getComponentOfClass(Class componentClass) {
         return this.components.stream()
                 .filter(componentClass::isInstance)

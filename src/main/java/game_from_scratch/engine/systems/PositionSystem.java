@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PositionSystem implements System<Position> {
-    private List<Position> positions;
+    private final List<Position> positions;
 
     public PositionSystem() {
         this.positions = new ArrayList<>();
@@ -24,10 +24,10 @@ public class PositionSystem implements System<Position> {
         }
     }
 
-    public Optional<Entity> getEntityOnPosition(int x, int y) {
+    public List<Entity> getEntitiesOnPosition(int x, int y) {
         return this.positions.stream()
                 .filter(position -> position.getX() == x && position.getY() == y)
                 .map(Component::getEntity)
-                .findFirst();
+                .collect(Collectors.toList());
     }
 }
