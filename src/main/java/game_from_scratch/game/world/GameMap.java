@@ -18,8 +18,24 @@ public class GameMap {
         this.ecs = ecs;
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
+        this.edgesOfGameMap();
         this.addTiles();
         this.addPlayer();
+    }
+
+    private void edgesOfGameMap() {
+        for(int y = -1; y <= this.mapHeight; y++) {
+            for (int x = -1; x <= this.mapWidth; x++) {
+                if(x == -1
+                || x == this.mapWidth
+                || y == -1
+                || y == this.mapHeight) {
+                    this.ecs.addEntity(List.of(
+                            new Position(x, y),
+                            new Colliding()));
+                }
+            }
+        }
     }
 
     private void addTiles() {
