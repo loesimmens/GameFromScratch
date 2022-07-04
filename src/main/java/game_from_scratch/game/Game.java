@@ -71,8 +71,10 @@ public class Game {
 
     public void tick() {
         this.ecs.tickInputSystem();
-        this.ecs.tickMovingSystem();
+        this.ecs.tickIntendToMoveSystem();
         this.ecs.tickPositionSystem();
+        this.ecs.tickCollisionSystem();
+        this.ecs.tickExecuteMoveSystem();
     }
 
     public void render() {

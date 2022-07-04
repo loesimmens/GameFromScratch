@@ -1,10 +1,7 @@
 package game_from_scratch.game.world;
 
 import game_from_scratch.engine.ECS;
-import game_from_scratch.engine.components.Moving;
-import game_from_scratch.engine.components.Position;
-import game_from_scratch.engine.components.Rendering;
-import game_from_scratch.engine.components.TakesInput;
+import game_from_scratch.engine.components.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -28,9 +25,16 @@ public class GameMap {
     private void addTiles() {
         for(int y = 0; y < this.mapHeight; y++) {
             for (int x = 0; x < this.mapWidth; x++) {
-                this.ecs.addEntity(List.of(
-                        new Position(x, y),
-                        new Rendering("wall", 0)));
+                if(y == this.mapHeight / 2 && x != this.mapWidth / 2) {
+                    this.ecs.addEntity(List.of(
+                            new Position(x, y),
+                            new Rendering("wall", 0),
+                            new Colliding()));
+                } else {
+                    this.ecs.addEntity(List.of(
+                            new Position(x, y),
+                            new Rendering("floor", 0)));
+                }
             }
         }
     }
@@ -40,7 +44,8 @@ public class GameMap {
                 new Position(0, 0),
                 new Moving(),
                 new Rendering("player", 1),
-                new TakesInput()
+                new TakesInput(),
+                new Colliding()
         ));
     }
 }
