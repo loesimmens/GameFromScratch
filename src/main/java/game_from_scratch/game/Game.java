@@ -5,6 +5,7 @@ import game_from_scratch.engine.systems.InputSystem;
 import game_from_scratch.game.graphics.GraphicsService;
 import game_from_scratch.game.logging.GameLogger;
 import game_from_scratch.game.world.GameMap;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
 import java.util.logging.Logger;
@@ -13,13 +14,15 @@ import java.util.logging.Logger;
 public class Game {
     private static final Logger LOGGER = GameLogger.getLogger();
 
+    private final int fps;
     private final GraphicsService graphicsService;
     private final GameMap gameMap;
     private final ECS ecs;
 
     private boolean running = false;
 
-    public Game(InputSystem inputSystem, GraphicsService graphicsService, GameMap gameMap, ECS ecs) {
+    public Game(InputSystem inputSystem, @Value("${fps}") int fps, GraphicsService graphicsService, GameMap gameMap, ECS ecs) {
+        this.fps = fps;
         this.graphicsService = graphicsService;
         this.ecs = ecs;
         this.graphicsService.getDisplay().getFrame().addKeyListener(inputSystem);
@@ -45,8 +48,7 @@ public class Game {
     }
 
     private void gameLoop() {
-        var fps = 60;
-        double timePerTick = (double) 1000000000 / fps;
+        double timePerTick = (double) 1000000000 / this.fps;
         double delta = 0;
         long lastTime = System.nanoTime();
         long timer = 0;
@@ -71,6 +73,7 @@ public class Game {
 
     public void tick() {
         this.ecs.tickInputSystem();
+        this.ecs.tickAISystem();
         this.ecs.tickIntendToMoveSystem();
         this.ecs.tickPositionSystem();
         this.ecs.tickCollisionSystem();

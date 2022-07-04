@@ -12,7 +12,7 @@ import java.awt.event.KeyListener;
 import java.util.Optional;
 
 @Service
-public class InputSystem implements KeyListener, System<TakesInput> {
+public class InputSystem implements KeyListener, System<TakesInput>, InputForMovementSystem {
     private InputKey inputKey;
     private boolean inputHandled;
 
@@ -49,7 +49,8 @@ public class InputSystem implements KeyListener, System<TakesInput> {
         }
     }
 
-    private void setDirectionForMoving(Entity entity) {
+    @Override
+    public void setDirectionForMoving(Entity entity) {
         Moving moving;
         Optional<Moving> optionalMoving = entity.getComponents().stream()
                 .filter(Moving.class::isInstance)
