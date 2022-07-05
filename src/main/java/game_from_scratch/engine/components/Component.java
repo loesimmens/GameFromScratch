@@ -16,7 +16,6 @@ public abstract class Component {
     @Override
     public String toString() {
         return "Component{" +
-                "entity=" + entity +
                 '}';
     }
 }

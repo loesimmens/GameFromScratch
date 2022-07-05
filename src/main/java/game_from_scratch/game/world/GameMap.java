@@ -29,8 +29,9 @@ public class GameMap {
                 new Position(3, 3),
                 new Moving(),
                 new Rendering("ai", 1),
-                new AI(2),
-                new Colliding()
+                new AI(),
+                new Colliding(),
+                new GetsTurns(2)
         ));
     }
 
@@ -72,7 +73,8 @@ public class GameMap {
                 new Moving(),
                 new Rendering("player", 1),
                 new TakesInput(),
-                new Colliding()
+                new Colliding(),
+                new GetsTurns(1)
         ));
     }
 }

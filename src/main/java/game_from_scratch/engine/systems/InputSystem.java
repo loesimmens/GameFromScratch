@@ -44,27 +44,39 @@ public class InputSystem implements KeyListener, System<TakesInput>, InputForMov
         if(!this.inputHandled) {
             setDirectionForMoving(entity);
             this.inputHandled = true;
-        } else {
-            //menus?
-        }
+        } //else menus?
     }
 
     @Override
     public void setDirectionForMoving(Entity entity) {
-        Moving moving;
-        Optional<Moving> optionalMoving = entity.getComponents().stream()
-                .filter(Moving.class::isInstance)
-                .map(Moving.class::cast)
-                .findFirst();
-        if(optionalMoving.isPresent()) {
-            moving = optionalMoving.get();
-            switch (this.inputKey) {
-                case W: moving.setIntendsToMove(true); moving.setIntendedDirection(Direction.UP); break;
-                case A: moving.setIntendsToMove(true); moving.setIntendedDirection(Direction.LEFT); break;
-                case S: moving.setIntendsToMove(true); moving.setIntendedDirection(Direction.DOWN); break;
-                case D: moving.setIntendsToMove(true); moving.setIntendedDirection(Direction.RIGHT); break;
-                default: moving.setIntendsToMove(false); break;
+            Moving moving;
+            Optional<Moving> optionalMoving = entity.getComponents().stream()
+                    .filter(Moving.class::isInstance)
+                    .map(Moving.class::cast)
+                    .findFirst();
+            if (optionalMoving.isPresent()) {
+                moving = optionalMoving.get();
+                switch (this.inputKey) {
+                    case W:
+                        moving.setIntendsToMove(true);
+                        moving.setIntendedDirection(Direction.UP);
+                        break;
+                    case A:
+                        moving.setIntendsToMove(true);
+                        moving.setIntendedDirection(Direction.LEFT);
+                        break;
+                    case S:
+                        moving.setIntendsToMove(true);
+                        moving.setIntendedDirection(Direction.DOWN);
+                        break;
+                    case D:
+                        moving.setIntendsToMove(true);
+                        moving.setIntendedDirection(Direction.RIGHT);
+                        break;
+                    default:
+                        moving.setIntendsToMove(false);
+                        break;
+                }
             }
-        }
     }
 }
