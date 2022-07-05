@@ -13,6 +13,7 @@ public class ECS {
     private final List<Entity> entities;
     protected List<Component> components;
 
+    private final TurnSystem turnSystem;
     private final RenderSystem renderSystem;
     private final InputSystem inputSystem;
     private final AISystem aiSystem;
@@ -21,8 +22,9 @@ public class ECS {
     private final PositionSystem positionSystem;
     private final CollisionSystem collisionSystem;
 
-    public ECS(RenderSystem renderSystem, InputSystem inputSystem, AISystem aiSystem, IntendToMoveSystem intendToMoveSystem,
+    public ECS(TurnSystem turnSystem, RenderSystem renderSystem, InputSystem inputSystem, AISystem aiSystem, IntendToMoveSystem intendToMoveSystem,
                ExecuteMoveSystem executeMoveSystem, PositionSystem positionSystem, CollisionSystem collisionSystem) {
+        this.turnSystem = turnSystem;
         this.aiSystem = aiSystem;
         this.positionSystem = positionSystem;
         this.renderSystem = renderSystem;
@@ -33,6 +35,10 @@ public class ECS {
 
         this.entities = new ArrayList<>();
         this.components = new ArrayList<>();
+    }
+
+    public void tickTurnSystem() {
+        this.turnSystem.actOnAllComponents(this.components, GetsTurns.class);
     }
 
     public void tickRenderSystem() {
@@ -81,5 +87,9 @@ public class ECS {
 
     public List<Component> getComponents() {
         return components;
+    }
+
+    public TurnSystem getTurnSystem() {
+        return turnSystem;
     }
 }

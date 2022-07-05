@@ -1,6 +1,7 @@
 package game_from_scratch.game;
 
 import game_from_scratch.engine.ECS;
+import game_from_scratch.engine.enums.WhoseTurn;
 import game_from_scratch.engine.systems.InputSystem;
 import game_from_scratch.game.graphics.GraphicsService;
 import game_from_scratch.game.logging.GameLogger;
@@ -15,6 +16,7 @@ public class Game {
     private static final Logger LOGGER = GameLogger.getLogger();
 
     private final int fps;
+    private int ticks;
     private final GraphicsService graphicsService;
     private final GameMap gameMap;
     private final ECS ecs;
@@ -60,8 +62,9 @@ public class Game {
             lastTime = now;
 
             if(delta >= 1) {
-                tick();
                 render();
+                tick();
+                ticks++;
                 delta--;
             }
 
@@ -72,12 +75,19 @@ public class Game {
     }
 
     public void tick() {
-        this.ecs.tickInputSystem();
-        this.ecs.tickAISystem();
+        WhoseTurn whoseTurn = this.ecs.getTurnSystem().getWhoseTurn();
+        if(whoseTurn == WhoseTurn.AI) {
+            if(this.ticks % 10 == 0) {
+                this.ecs.tickAISystem();
+            }
+        } else {
+            this.ecs.tickInputSystem();
+        }
         this.ecs.tickIntendToMoveSystem();
         this.ecs.tickPositionSystem();
         this.ecs.tickCollisionSystem();
         this.ecs.tickExecuteMoveSystem();
+        this.ecs.tickTurnSystem();
     }
 
     public void render() {
