@@ -7,7 +7,7 @@ import java.util.List;
 public class EntityFactory {
     private EntityFactory(){}
 
-    public static List<Component> getPlayer() {
+    public static List<Component> getPlayerComponents() {
         return List.of(
                 new Position(0, 0),
                 new Moving(),

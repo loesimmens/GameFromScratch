@@ -69,6 +69,6 @@ public class GameMap {
     }
 
     private void addPlayer() {
-        this.ecs.addEntity(EntityFactory.getPlayer());
+        this.ecs.addEntity(EntityFactory.getPlayerComponents());
     }
 }
