@@ -17,4 +17,15 @@ public class EntityFactory {
                 new GetsTurns(1)
         );
     }
+
+    public static List<Component> getAiComponents() {
+        return List.of(
+                new Position(3, 3),
+                new Moving(),
+                new Rendering("ai", 1),
+                new AI(),
+                new Colliding(),
+                new GetsTurns(2)
+        );
+    }
 }

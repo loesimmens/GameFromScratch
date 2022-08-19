@@ -14,4 +14,10 @@ class EntityFactoryTest {
         List<Component> playerComponents = EntityFactory.getPlayerComponents();
         assertNotNull(playerComponents);
     }
+
+    @Test
+    void getAIComponents() {
+        List<Component> aiComponents = EntityFactory.getAiComponents();
+        assertNotNull(aiComponents);
+    }
 }
