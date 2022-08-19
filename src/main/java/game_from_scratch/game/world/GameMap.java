@@ -26,14 +26,7 @@ public class GameMap {
     }
 
     private void addAI() {
-        this.ecs.addEntity(List.of(
-                new Position(3, 3),
-                new Moving(),
-                new Rendering("ai", 1),
-                new AI(),
-                new Colliding(),
-                new GetsTurns(2)
-        ));
+        this.ecs.addEntity(EntityFactory.getAiComponents());
     }
 
     private void edgesOfGameMap() {
