@@ -2,6 +2,7 @@ package game_from_scratch.game.world;
 
 import game_from_scratch.engine.ECS;
 import game_from_scratch.engine.components.*;
+import game_from_scratch.game.world.factories.EntityFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -68,13 +69,6 @@ public class GameMap {
     }
 
     private void addPlayer() {
-        this.ecs.addEntity(List.of(
-                new Position(0, 0),
-                new Moving(),
-                new Rendering("player", 1),
-                new TakesInput(),
-                new Colliding(),
-                new GetsTurns(1)
-        ));
+        this.ecs.addEntity(EntityFactory.getPlayerComponents());
     }
 }
