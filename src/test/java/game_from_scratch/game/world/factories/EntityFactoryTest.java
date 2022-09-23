@@ -11,13 +11,13 @@ class EntityFactoryTest {
 
     @Test
     void getPlayerComponents() {
-        List<Component> playerComponents = EntityFactory.getPlayerComponents();
+        List<Component> playerComponents = EntityFactory.getPlayerComponents(0,0);
         assertNotNull(playerComponents);
     }
 
     @Test
     void getAIComponents() {
-        List<Component> aiComponents = EntityFactory.getAiComponents();
+        List<Component> aiComponents = EntityFactory.getAiComponents(3,3);
         assertNotNull(aiComponents);
     }
 }
