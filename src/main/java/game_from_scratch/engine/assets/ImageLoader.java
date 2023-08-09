@@ -15,14 +15,12 @@ import java.util.logging.Logger;
 public class ImageLoader {
     private static final Logger LOGGER = GameLogger.getLogger();
 
-    private ImageLoader(){}
-
     public BufferedImage loadImage(String path) {
         try {
             URL url = Paths.get(path).toUri().toURL();
             return ImageIO.read(url);
         }  catch (IOException exception) {
-            LOGGER.log(Level.WARNING, "can't load image from path " + path, exception);
+            LOGGER.log(Level.WARNING, exception, () -> "can't load image from path " + path);
         }
         return null;
     }

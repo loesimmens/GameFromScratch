@@ -24,12 +24,15 @@ public class RenderSystem implements System<Rendering> {
     private final AssetService assetService;
     private final int tileWidth;
     private final int tileHeight;
+    private final String spritesPath;
 
     public RenderSystem(AssetService assetService,
-                        @Value("${tile.width}") int tileWidth, @Value("${tile.height}") int tileHeight) {
+                        @Value("${tile.width}") int tileWidth, @Value("${tile.height}") int tileHeight,
+                        @Value("${sprites.path}") String spritesPath) {
         this.assetService = assetService;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
+        this.spritesPath = spritesPath;
     }
 
     public void setGraphics(Graphics graphics) {
@@ -45,11 +48,10 @@ public class RenderSystem implements System<Rendering> {
                 .forEach(this::actOnOneComponent);
     }
 
-    //todo unit test voor RenderingException
     @Override
     public void actOnOneComponent(Rendering rendering) {
         if(rendering.getImage() == null) {
-            rendering.setImage(this.assetService.getImage(rendering.getImageName()));
+            rendering.setImage(this.assetService.getImage(spritesPath, rendering.getImageName()));
         }
         Entity entity = rendering.getEntity();
 
@@ -60,7 +62,7 @@ public class RenderSystem implements System<Rendering> {
 
             this.graphics.drawImage(rendering.getImage(), x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight, null);
         } catch (RenderingException renderingException) {
-            LOGGER.log(Level.WARNING, "Rendering entity " + entity.getId() + "has no position!", renderingException);
+            LOGGER.log(Level.WARNING, renderingException, () -> "Rendering entity " + entity.getId() + "has no position!");
         }
     }
 }
