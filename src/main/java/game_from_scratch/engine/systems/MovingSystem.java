@@ -1,12 +1,18 @@
 package game_from_scratch.engine.systems;
 
+import game_from_scratch.engine.components.Colliding;
+import game_from_scratch.engine.components.Component;
 import game_from_scratch.engine.components.Moving;
-import game_from_scratch.engine.components.Position;
-import game_from_scratch.game.logging.GameLogger;
-import java.util.logging.Logger;
 
-public abstract class MovingSystem implements System<Moving> {
-    protected static final Logger LOGGER = GameLogger.getLogger();
+import java.util.Optional;
 
-    protected Position position;
+public interface MovingSystem extends System<Moving> {
+    default boolean collisionCheckPassed(Moving moving) {
+        Optional<Component> optionalColliding = moving.getEntity().getComponentOfClass(Colliding.class);
+        if(optionalColliding.isPresent()) {
+            Colliding colliding = (Colliding) optionalColliding.get();
+            return colliding.isCollisionCheckPassed();
+        }
+        return true;
+    }
 }

@@ -5,13 +5,18 @@ import game_from_scratch.engine.components.Component;
 import game_from_scratch.engine.components.Moving;
 import game_from_scratch.engine.components.Position;
 import game_from_scratch.engine.enums.Direction;
+import game_from_scratch.game.logging.GameLogger;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
-public class IntendToMoveSystem extends MovingSystem {
+public class IntendToMoveSystem implements MovingSystem {
+    private Position position;
+    private static final Logger LOGGER = GameLogger.getLogger();
+
     @Override
     public void actOnOneComponent(Moving moving) {
         if(moving.intendsToMove()) {

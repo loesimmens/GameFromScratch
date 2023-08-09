@@ -5,11 +5,10 @@ import game_from_scratch.game.logging.GameLogger;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
-public class ExecuteMoveSystem extends MovingSystem {
-    private static final Logger LOGGER = GameLogger.getLogger();
+public class ExecuteMoveSystem implements MovingSystem {
+    private Position position;
 
     @Override
     public void actOnOneComponent(Moving moving) {
@@ -32,15 +31,6 @@ public class ExecuteMoveSystem extends MovingSystem {
             GetsTurns getsTurns = (GetsTurns) optionalGetsTurns.get();
             getsTurns.decreaseTurnsLeft();
         }
-    }
-
-    private boolean collisionCheckPassed(Moving moving) {
-        Optional<Component> optionalColliding = moving.getEntity().getComponentOfClass(Colliding.class);
-        if(optionalColliding.isPresent()) {
-            Colliding colliding = (Colliding) optionalColliding.get();
-            return colliding.isCollisionCheckPassed();
-        }
-        return true;
     }
 
     private void move(Moving moving) {
