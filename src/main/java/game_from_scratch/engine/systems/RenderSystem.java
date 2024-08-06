@@ -1,5 +1,6 @@
 package game_from_scratch.engine.systems;
 
+import game_from_scratch.engine.assets.ImageLoader;
 import game_from_scratch.engine.components.Component;
 import game_from_scratch.engine.components.Position;
 import game_from_scratch.engine.components.Rendering;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,14 +27,16 @@ public class RenderSystem implements System<Rendering> {
     private final int tileWidth;
     private final int tileHeight;
     private final String spritesPath;
+    private final ImageLoader imageLoader;
 
     public RenderSystem(AssetService assetService,
                         @Value("${tile.width}") int tileWidth, @Value("${tile.height}") int tileHeight,
-                        @Value("${sprites.path}") String spritesPath) {
+                        @Value("${sprites.path}") String spritesPath, ImageLoader imageLoader) {
         this.assetService = assetService;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.spritesPath = spritesPath;
+        this.imageLoader = imageLoader;
     }
 
     public void setGraphics(Graphics graphics) {
@@ -51,7 +55,12 @@ public class RenderSystem implements System<Rendering> {
     @Override
     public void actOnOneComponent(Rendering rendering) {
         if(rendering.getImage() == null) {
-            rendering.setImage(this.assetService.getImage(spritesPath, rendering.getImageName()));
+            BufferedImage image = this.assetService.getImage(spritesPath, rendering.getImageName());
+            if(image == null) {
+                rendering.setImage(this.imageLoader.getDefaultImage());
+            } else {
+                rendering.setImage(image);
+            }
         }
         Entity entity = rendering.getEntity();
 

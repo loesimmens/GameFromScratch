@@ -5,7 +5,6 @@ import game_from_scratch.engine.enums.WhoseTurn;
 import game_from_scratch.engine.systems.InputSystem;
 import game_from_scratch.game.graphics.GraphicsService;
 import game_from_scratch.game.logging.GameLogger;
-import game_from_scratch.game.world.GameMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
@@ -14,21 +13,23 @@ import java.util.logging.Logger;
 @Controller
 public class Game {
     private static final Logger LOGGER = GameLogger.getLogger();
+    private static final double ONE_SECOND = 1000000000.0;
 
     private final int fps;
     private int ticks;
+    private double ticksSinceLastTime;
+    private long timePassed;
+
     private final GraphicsService graphicsService;
-    private final GameMap gameMap;
     private final ECS ecs;
 
     private boolean running = false;
 
-    public Game(InputSystem inputSystem, @Value("${fps}") int fps, GraphicsService graphicsService, GameMap gameMap, ECS ecs) {
+    public Game(InputSystem inputSystem, @Value("${fps}") int fps, GraphicsService graphicsService, ECS ecs) {
         this.fps = fps;
         this.graphicsService = graphicsService;
         this.ecs = ecs;
         this.graphicsService.getDisplay().getFrame().addKeyListener(inputSystem);
-        this.gameMap = gameMap;
     }
 
     public void start() {
@@ -37,41 +38,36 @@ public class Game {
             LOGGER.info("Game has started");
 
             gameLoop();
-
-            stop(); //todo: never reached?
-        }
-    }
-
-    public void stop() {
-        if(running) {
-            running = false;
-            LOGGER.info("Game has stopped");
         }
     }
 
     private void gameLoop() {
-        double timePerTick = (double) 1000000000 / this.fps;
-        double delta = 0;
+        double timePerTick = ONE_SECOND / this.fps;
         long lastTime = System.nanoTime();
-        long timer = 0;
         long now;
         while(running) {
             now = System.nanoTime();
-            delta += (now - lastTime) / timePerTick;
-            timer += now - lastTime;
+            long timePassedSinceLastTime = now - lastTime;
+            ticksSinceLastTime += (timePassedSinceLastTime) / timePerTick;
+            timePassed += timePassedSinceLastTime;
             lastTime = now;
 
-            if(delta >= 1) {
-                render();
-                tick();
-                ticks++;
-                delta--;
+            // for every tick
+            if(ticksSinceLastTime >= 1) {
+                tickActions();
             }
 
-            if(timer >= 1000000000) {
-                timer = 0;
+            if(timePassed >= ONE_SECOND) {
+                timePassed = 0;
             }
         }
+    }
+
+    private void tickActions() {
+        render();
+        tick();
+        ticks++;
+        ticksSinceLastTime--;
     }
 
     public void tick() {
@@ -92,5 +88,12 @@ public class Game {
 
     public void render() {
         this.graphicsService.render();
+    }
+
+    public void stop() {
+        if(running) {
+            running = false;
+            LOGGER.info("Game has stopped");
+        }
     }
 }

@@ -1,6 +1,7 @@
 package game_from_scratch.engine.assets;
 
 import game_from_scratch.game.logging.GameLogger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -14,14 +15,22 @@ import java.util.logging.Logger;
 @Service
 public class ImageLoader {
     private static final Logger LOGGER = GameLogger.getLogger();
+    private BufferedImage defaultImage;
 
-    public BufferedImage loadImage(String path) {
+    public ImageLoader(@Value("${sprites.path.default.image}") String defaultImageWholePath) {
         try {
-            URL url = Paths.get(path).toUri().toURL();
-            return ImageIO.read(url);
-        }  catch (IOException exception) {
-            LOGGER.log(Level.WARNING, exception, () -> "can't load image from path " + path);
+            defaultImage = this.loadImage(defaultImageWholePath);
+        } catch(IOException exception) {
+            LOGGER.log(Level.WARNING, exception, () -> "Default image could not be loaded from path: " + defaultImageWholePath);
         }
-        return null;
+    }
+
+    public BufferedImage loadImage(String path) throws IOException {
+        final URL url = Paths.get(path).toUri().toURL();
+        return ImageIO.read(url);
+    }
+
+    public BufferedImage getDefaultImage() {
+        return defaultImage;
     }
 }
